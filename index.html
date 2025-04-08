@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPRENSIÓN Y PRODUCCIÓN DE TEXTO I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 18px 25px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #ffcc00;
+        }
+        
+        nav {
+            background-color: #f1f5f9;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: #003366;
+            text-decoration: underline;
+        }
+        
+        .main-content {
+            padding: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .course-header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #003366;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #003366;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .main-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        
+        .main-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        
+        .main-tab.active {
+            border-bottom: 3px solid #003366;
+            font-weight: bold;
+            color: #003366;
+            background-color: #f8fafc;
+        }
+        
+        .main-tab:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .unit-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+        
+        .unit-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        
+        .unit-tab.active {
+            border-bottom: 3px solid #ffcc00;
+            font-weight: bold;
+            color: #003366;
+        }
+        
+        .unit-tab:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .unit-content {
+            margin-top: 25px;
+            padding: 20px;
+            line-height: 1.7;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .unit-content.active {
+            display: block;
+        }
+        
+        .unit-content p {
+            margin-bottom: 18px;
+        }
+        
+        .unit-indicator {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        /* Estilos para el sistema de tarjetas */
+        .info-section {
+            margin: 35px 0;
+        }
+        
+        .main-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #003366;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .main-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .main-card-title .icon {
+            margin-right: 12px;
+            font-size: 24px;
+        }
+        
+        .sub-cards-container {
+            margin-top: 20px;
+            padding-left: 15px;
+        }
+        
+        .sub-card {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffcc00;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sub-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .sub-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sub-card-title .icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .search-bar input {
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px 0 0 6px;
+            flex-grow: 1;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: #003366;
+        }
+        
+        .search-bar button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background-color 0.2s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #002b57;
+        }
+
+        footer {
+            background-color: #3872ca;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-developer {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-program {
+            font-style: italic;
+            margin-bottom: 0.3rem;
+        }
+        
+        .footer-course {
+            margin-bottom: 0.3rem;
+        }
+        
+        .footer-location {
+            margin-bottom: 0.5rem;
+        }
+        
+        .privacy-policy {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Estilos para la página de detalle */
+        .detail-page {
+            display: none;
+        }
+
+        .detail-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #003366;
+        }
+
+        .back-button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .back-button .icon {
+            margin-right: 8px;
+        }
+
+        .detail-content {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <!-- Página principal -->
+    <div id="main-page">
+        <header>
+            CAMPUS SIMA 2025
+        </header>
+        
+        <nav>
+            <div class="nav-links">
+                <a href="#">Página Principal</a>
+                <a href="#">Área personal</a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="course-card">
+                <div class="course-header">
+                    COMPRENSIÓN Y PRODUCCIÓN DE TEXTO I - 01 - 2025 - 1
+                </div>
+                
+                <div class="main-tabs">
+                    <div class="main-tab active">Curso</div>
+                    <div class="main-tab">Participantes</div>
+                    <div class="main-tab">Calificaciones</div>
+                    <div class="main-tab">Competencias</div>
+                </div>
+                
+                <div class="unit-tabs">
+                    <div class="unit-tab active" data-unit="presentacion">Presentación</div>
+                    <div class="unit-tab" data-unit="unidad1">Unidad 1</div>
+                    <div class="unit-tab" data-unit="unidad2">Unidad 2</div>
+                    <div class="unit-tab" data-unit="unidad3">Unidad 3</div>
+                    <div class="unit-tab" data-unit="unidad4">Unidad 4</div>
+                    <div class="unit-tab" data-unit="trabajo">Trabajo colaborativo</div>
+                </div>
+                
+                <!-- Contenido de Presentación -->
+                <div class="unit-content active" id="presentacion">
+                    <div class="unit-indicator">Estás en la Presentación del curso</div>
+                    <p>En el curso de Comprensión y Producción de Textos, los enfoques constructivistas del proceso de enseñanza aprendizaje y el paradigma interpretativo, reconocen la importancia del lenguaje y la acción comunicativa en búsqueda de significados para la construcción del conocimiento.</p>
+                    <p>De acuerdo con la teoría de Habermas, el lenguaje y la comunicación son ante todo un fenómeno de comprensión y de construcción de significados. Existen distintas maneras de comprender y de expresar lo que se comprende. La comunicación es parte fundamental de la comprensión porque implica, por un lado, comprender a la audiencia, saber a quién se dirige uno para crear la forma de comunicación más efectiva; por otro lado, implica conocerse a sí mismo para saber cuál es la forma de comunicación con la que se tiene más habilidad.</p>
+                    
+                    <!-- Tarjetas solo para la presentación -->
+                    <div class="info-section">
+                        <div class="main-card">
+                            <div class="main-card-title">
+                                <span class="icon">📋</span>
+                                INFORMACIÓN DE LA ASIGNATURA
+                            </div>
+                            
+                            <div class="sub-cards-container">
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">📂</span>
+                                        Proyecto docente
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">📊</span>
+                                        Infografía del curso
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">📝</span>
+                                        Guía de actividades
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">📚</span>
+                                        Glosario
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="main-card">
+                            <div class="main-card-title">
+                                <span class="icon">💬</span>
+                                ESPACIO DE INTERACCIÓN
+                            </div>
+                            
+                            <div class="sub-cards-container">
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">🔍</span>
+                                        Actividad de presaber
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">👋</span>
+                                        Foro de presentación
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">🖇️</span>
+                                        Enlaces de tutoría
+                                    </div>
+                                </div>
+                                
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">❓</span>
+                                        Pregúntale al profesor
+                                    </div>
+                                </div>
+
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">👥</span>
+                                        Autocreación de CIPAS
+                                    </div>
+                                </div>
+
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">⚙️</span>
+                                        Enlace a herramienta Turnitin
+                                    </div>
+                                </div>
+
+                                <div class="sub-card">
+                                    <div class="sub-card-title">
+                                        <span class="icon">💡</span>
+                                        Foro temático de las unidades
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de Unidad 1 -->
+                <div class="unit-content" id="unidad1">
+                    <div class="unit-indicator"> Modelo de Interacción Comunicativa </div>
+                    
+                    <!-- Tarjeta 1: Recursos Didácticos -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📚</span>
+                            Recursos Didácticos
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card" onclick="showDetailPage('Módulo de la Unidad 1')">
+                                <div class="sub-card-title">
+                                    <span class="icon">📖</span>
+                                    Módulo de la Unidad 1
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card" onclick="showDetailPage('Recursos Bibliográficos Digitales de la Unidad 1')">
+                                <div class="sub-card-title">
+                                    <span class="icon">🔗</span>
+                                    Recursos Bibliográficos Digitales de la Unidad 1
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">🏛️</span>
+                                    Enlace a Biblioteca Institucional
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarjeta 2: Actividades -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📝</span>
+                            Actividades
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📄</span>
+                                    Protocolo individual de la Unidad 1
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">👥</span>
+                                    Protocolo colaborativo de la Unidad 1
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">✏️</span>
+                                    Actividad de la Unidad 1
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📊</span>
+                                    Evaluación de la Unidad 1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de Unidad 2 -->
+                <div class="unit-content" id="unidad2">
+                    <div class="unit-indicator"> Comprensión e Interpretación de Textos Expositivos </div>
+                    
+                    <!-- Tarjeta 1: Recursos Didácticos -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📚</span>
+                            Recursos Didácticos
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card" onclick="showDetailPage('Módulo de la Unidad 2')">
+                                <div class="sub-card-title">
+                                    <span class="icon">📖</span>
+                                    Módulo de la Unidad 2
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card" onclick="showDetailPage('Recursos Bibliográficos Digitales de la Unidad 2')">
+                                <div class="sub-card-title">
+                                    <span class="icon">🔗</span>
+                                    Recursos Bibliográficos Digitales de la Unidad 2
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">🏛️</span>
+                                    Enlace a Biblioteca Institucional
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarjeta 2: Actividades -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📝</span>
+                            Actividades
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📄</span>
+                                    Protocolo individual de la Unidad 2
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">👥</span>
+                                    Protocolo colaborativo de la Unidad 2
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">✏️</span>
+                                    Actividad de la Unidad 2
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📊</span>
+                                    Evaluación de la Unidad 2
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de Unidad 3 -->
+                <div class="unit-content" id="unidad3">
+                    <div class="unit-indicator"> Comprensión e Interpretación de Textos Argumentativos </div>
+                    
+                    <!-- Tarjeta 1: Recursos Didácticos -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📚</span>
+                            Recursos Didácticos
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card" onclick="showDetailPage('Módulo de la Unidad 3')">
+                                <div class="sub-card-title">
+                                    <span class="icon">📖</span>
+                                    Módulo de la Unidad 3
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card" onclick="showDetailPage('Recursos Bibliográficos Digitales de la Unidad 3')">
+                                <div class="sub-card-title">
+                                    <span class="icon">🔗</span>
+                                    Recursos Bibliográficos Digitales de la Unidad 3
+
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">🏛️</span>
+                                    Enlace a Biblioteca Institucional
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarjeta 2: Actividades -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📝</span>
+                            Actividades
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📄</span>
+                                    Protocolo individual de la Unidad 3
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">👥</span>
+                                    Protocolo colaborativo de la Unidad 3
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">✏️</span>
+                                    Actividad de la Unidad 3
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📊</span>
+                                    Evaluación de la Unidad 3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de Unidad 4 -->
+                <div class="unit-content" id="unidad4">
+                    <div class="unit-indicator"> Comprensión e Interpretación de Textos Discontinuos </div>
+                    
+                    <!-- Tarjeta 1: Recursos Didácticos -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📚</span>
+                            Recursos Didácticos
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card" onclick="showDetailPage('Módulo de la Unidad 4')">
+                                <div class="sub-card-title">
+                                    <span class="icon">📖</span>
+                                    Módulo de la Unidad 4
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card" onclick="showDetailPage('Recursos Bibliográficos Digitales de la Unidad 4')">
+                                <div class="sub-card-title">
+                                    <span class="icon">🔗</span>
+                                    Recursos Bibliográficos Digitales de la Unidad 4
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">🏛️</span>
+                                    Enlace a Biblioteca Institucional
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarjeta 2: Actividades -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">📝</span>
+                            Actividades
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📄</span>
+                                    Protocolo individual de la Unidad 4
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">👥</span>
+                                    Protocolo colaborativo de la Unidad 4
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">✏️</span>
+                                    Actividad de la Unidad 4
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📊</span>
+                                    Evaluación de la Unidad 4
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de Trabajo Colaborativo -->
+                <div class="unit-content" id="trabajo">
+                    <div class="unit-indicator">Estás en el Trabajo colaborativo</div>
+                    
+                    <!-- Tarjetas específicas para trabajo colaborativo -->
+                    <div class="main-card">
+                        <div class="main-card-title">
+                            <span class="icon">👥</span>
+                            Trabajo Colaborativo
+                        </div>
+                        
+                        <div class="sub-cards-container">
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📋</span>
+                                    Instrucciones del trabajo
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📅</span>
+                                    Cronograma de entregas
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📝</span>
+                                    Plantilla de entrega
+                                </div>
+                            </div>
+                            
+                            <div class="sub-card">
+                                <div class="sub-card-title">
+                                    <span class="icon">📊</span>
+                                    Rúbrica de evaluación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar en el curso...">
+                    <button>Buscar</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-developer">Desarrollado por MontesIng</div>
+                <div class="footer-program">para Cipa Exploradores Del Conocimiento</div>
+                <div class="footer-course">Comprension y Producción De Texto I</div>
+                <div class="footer-program">Técnica Profesional En Procesos De Gestion Pública</div>
+                <div class="footer-location">Semestre II - Magangué, Bolivar, Colombia - Abril 2025</div>
+                <div class="privacy-policy">
+                    Política de privacidad
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Página de detalle -->
+    <div id="detail-page" class="detail-page">
+        <header>
+            CAMPUS SIMA 2025
+        </header>
+        
+        <nav>
+            <div class="nav-links">
+                <a href="#" onclick="hideDetailPage()">Página Principal</a>
+                <a href="#">Área personal</a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <div class="course-card">
+                <button class="back-button" onclick="hideDetailPage()">
+                    <span class="icon">←</span> Volver
+                </button>
+                
+                <div class="detail-header" id="detail-title"></div>
+                
+                <div class="detail-content">
+                    <p>Contenido detallado de este recurso...</p>
+                    <!-- Aquí iría el contenido específico de cada módulo o recurso -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-developer">Desarrollado por MontesIng</div>
+                <div class="footer-program">para Cipa Exploradores Del Conocimiento</div>
+                <div class="footer-course">Comprension y Producción De Texto I</div>
+                <div class="footer-program">Técnica Profesional En Procesos De Gestion Pública</div>
+                <div class="footer-location">Semestre II - Magangué, Bolivar, Colombia - Abril 2025</div>
+                <div class="privacy-policy">
+                    Política de privacidad
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+
+
+
+        // Contenido ÚNICO para MÓDULOS (1 por unidad)
+        const modulosUnicos = {
+            'Módulo de la Unidad 1': {
+                title: 'Módulo 1: Modelos de Comunicación',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">📌 Teorías Principales</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li><strong>Modelo Shannon-Weaver:</strong> Elementos básicos (emisor, receptor, canal)</li>
+                                <li><strong>Habermas:</strong> Acción comunicativa en contextos académicos</li>
+                                <li>Ejercicio: Analizar 3 barreras comunicativas en tu facultad</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-resource">
+                        <div class="resource-title">🛠 Taller Práctico</div>
+                        <div class="resource-content">
+                            <p>Grabar un audio de 2 minutos explicando:</p>
+                            <ol>
+                                <li>Un concepto clave de tu carrera</li>
+                                <li>Cómo aplicarías estos modelos</li>
+                            </ol>
+                            <a href="#" class="resource-download">Descargar formato de entrega</a>
+                        </div>
+                    </div>
+                `
+            },
+            'Módulo de la Unidad 2': {
+                title: 'Módulo 2: Textos Expositivos',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">📌 Estructura Básica</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li><strong>Introducción:</strong> Presentación clara del tema</li>
+                                <li><strong>Desarrollo:</strong> 3 características esenciales</li>
+                                <li><strong>Conclusión:</strong> Síntesis y cierre</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-resource">
+                        <div class="resource-title">✍️ Ejercicio</div>
+                        <div class="resource-content">
+                            <p>Transformar este texto técnico en versión divulgativa:</p>
+                            <blockquote>
+                                "La fotosíntesis es un proceso bioquímico mediante el cual los organismos fotoautótrofos..."
+                            </blockquote>
+                        </div>
+                    </div>
+                `
+            },
+            'Módulo de la Unidad 3': {
+                title: 'Módulo 3: Argumentación Académica',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">⚖️ Técnicas Argumentativas</div>
+                        <div class="resource-content">
+                            <ol>
+                                <li>Uso de evidencias empíricas</li>
+                                <li>Estructura Toulmin (tesis, apoyo, garantía)</li>
+                                <li>Refutación de contraargumentos</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="detail-resource">
+                        <div class="resource-title">💡 Caso Práctico</div>
+                        <div class="resource-content">
+                            <p>Analiza este fragmento e identifica:</p>
+                            <pre>
+"La inteligencia artificial mejorará la educación porque:
+1) Permite personalización (estudio de Chen, 2022)
+2) Reduce costos (informe UNESCO 2023)
+Aunque requiere capacitación docente (contraargumento)"</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'Módulo de la Unidad 4': {
+                title: 'Módulo 4: Interpretación de Datos',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">📊 Tipos de Gráficos</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li><strong>Barras:</strong> Comparación de categorías</li>
+                                <li><strong>Líneas:</strong> Evolución temporal</li>
+                                <li><strong>Circular:</strong> Proporciones</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-resource">
+                        <div class="resource-title">🔍 Ejercicio</div>
+                        <div class="resource-content">
+                            <p>Describe qué muestra este gráfico:</p>
+                            <img src="https://via.placeholder.com/400x200?text=Gráfico+de+ejemplo" alt="Gráfico ejemplo" style="max-width:100%; border:1px solid #ddd;">
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Contenido ÚNICO para RECURSOS BIBLIOGRÁFICOS (1 por unidad)
+        const recursosUnicos = {
+            'Recursos Bibliográficos Digitales de la Unidad 1': {
+                title: '📚 Bibliografía Unidad 1 <div> Hola </div>',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">Lecturas Obligatorias</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li>Shannon, C. (1948). <em>A Mathematical Theory of Communication</em></li>
+                                <li>Habermas, J. (1987). <em>Teoría de la acción comunicativa</em>. Cap. 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-resource">
+                        <div class="resource-title">Recursos Digitales</div>
+                        <div class="resource-content">
+                            <a href="#" class="resource-link">▶ Video: Modelos Comunicativos Actuales</a><br>
+                            <a href="#" class="resource-link">🎧 Podcast: Comunicación en la Universidad</a>
+                        </div>
+                    </div>
+                `
+            },
+            'Recursos Bibliográficos Digitales de la Unidad 2': {
+                title: '📚 Bibliografía Unidad 2',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">Lecturas Obligatorias</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li>Cassany, D. (2006). <em>La cocina de la escritura</em>. pp. 45-78</li>
+                                <li>Montolío, E. (2014). <em>Manual de escritura académica</em>. Parte 2</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'Recursos Bibliográficos Digitales de la Unidad 3': {
+                title: '📚 Bibliografía Unidad 3',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">Lecturas Obligatorias</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li>Toulmin, S. (1958). <em>The Uses of Argument</em>. Cap. 1-3</li>
+                                <li>Perelman, C. (1989). <em>Tratado de la argumentación</em>. Sección 1</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            'Recursos Bibliográficos Digitales de la Unidad 4': {
+                title: '📚 Bibliografía Unidad 4',
+                content: `
+                    <div class="detail-resource">
+                        <div class="resource-title">Lecturas Obligatorias</div>
+                        <div class="resource-content">
+                            <ul>
+                                <li>Tufte, E. (2001). <em>The Visual Display of Quantitative Information</em></li>
+                                <li>Cairo, A. (2013). <em>El arte funcional</em>. Cap. 2-4</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Función para mostrar contenido detallado
+       // Función para mostrar contenido detallado
+    function showDetailPage(title) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('detail-page').style.display = 'block';
+            
+            const detailTitle = document.getElementById('detail-title');
+            const detailContent = document.querySelector('.detail-content'); // Cambiado a la clase correcta
+            
+            // Buscar en módulos
+            if (modulosUnicos[title]) {
+                detailTitle.innerHTML = modulosUnicos[title].title;
+                detailContent.innerHTML = modulosUnicos[title].content;
+            } 
+            // Buscar en recursos
+            else if (recursosUnicos[title]) {
+                detailTitle.innerHTML = recursosUnicos[title].title;
+                detailContent.innerHTML = recursosUnicos[title].content;
+            }
+            // Contenido por defecto
+            else {
+                detailTitle.textContent = title;
+                detailContent.innerHTML = `
+                    <div class="detail-resource">
+                        <div class="resource-title">${title}</div>
+                        <div class="resource-content">
+                            <p>Contenido no especificado. Consulta con tu profesor.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Función para volver atrás
+        function hideDetailPage() {
+            document.getElementById('main-page').style.display = 'block';
+            document.getElementById('detail-page').style.display = 'none';
+        }
+
+        // Manejo de pestañas de unidades
+        document.querySelectorAll('.unit-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remover clase active de todas las pestañas
+                document.querySelectorAll('.unit-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Remover clase active de todos los contenidos
+                document.querySelectorAll('.unit-content').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // Agregar active a la pestaña clickeada
+                tab.classList.add('active');
+                
+                // Mostrar el contenido correspondiente
+                const unitId = tab.getAttribute('data-unit');
+                document.getElementById(unitId).classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
